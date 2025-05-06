@@ -35,14 +35,14 @@ Formatting of these lists is documented separately, see [log-list format][].
 
 There is a single list of logs right now:
 
-  - [lists/10qps-1Ml][]
+  - [10qps-1Ml][]
 
 The file name describes what performance profile a witness configuring the list
 must be able to handle.  For example, `10qps-1Ml` means the list is maintained
 to work for a witness that can handle 10 add-checkpoint requests (sustained on
 average) with enough persistent storage to support at least one million logs.
 
-[lists/10qps-1Ml]: ./lists/logs/10qps-1Ml
+[10qps-1Ml]: ./lists/logs/10qps-1Ml
 [log-list format]: ./log-list-format.md
 
 TODO: signed list, not that crucial but makes sense.
