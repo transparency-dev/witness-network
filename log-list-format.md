@@ -8,14 +8,14 @@ This document describes a line-terminated log-list format.  Lines starting with
     # list header
     logs/v0
     revision 2
-    
+
     # 1st list item -- foo's public log
     origin tlog.foo.org
     vkey tlog.foo.org+aaaaaa+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     bastion https://bastion.tlog.foo.org/
     qpd 86400
     contact https://tlog.foo.org/contact
-    
+
     # 2nd list item -- bar's serverless log
     origin bar.org/serverless-log
     vkey bar.org/serverless-log+bbbbbbbb+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
