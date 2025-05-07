@@ -38,6 +38,8 @@ A log list starts with the following three-line header:
 `BLANK LINE` is a line only containing a new line (U+000A).  This marks the end
 of the header.  Zero or more logs will follow after this, see below.
 
+TODO: timestamp in the header?
+
 ## List of logs
 
 A log is defined by the following in-order lines:
