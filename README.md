@@ -4,48 +4,74 @@ somewhere.  Joint work between sigsum, trust fabric, transparency.dev, etc.
 # PROJECT-NAME - A community-maintained witness network
 
 PROJECT-NAME is a community-maintained repository of metadata that simplifies
-configuration of append-only transparency logs that use witness cosigning.
+configuration of append-only transparency logs that use [witness cosigning][].
 
 The current community maintainers are:
 
   - Name, organization
   - ...
 
+[witness cosigning]: https://C2SP.org/tlog-witness
+
+## Background 
+
+Log and witness operators need to *mutually* chose each other to get a reliable
+witnessing setup.  (A log that accepts any witness will be subject to DoS.  A
+witness that accepts any log will be subject to DoS.)
+
+Either the log or the witness operator needs to initiate mutual configuration.
+It makes sense that the log operator is the initiator.  (The log anyway have to
+manually assess which witnesses are reasonable from a trust policy perspective.)
+
+It should be as easy as possible to operate a witness.  (It is the component
+that brings trust into the system.  If it is easy to operate, then it is easier
+to get a diverse set of reliable witnesses.  It is also harder to screw up.)
+
+It is an operational burden for a witness to get asked to configure every log,
+including assessments like "does it make sense to witness this log".  It is an
+operational burden for a log operator to ask multiple witnesses to configure it.
+
 ## Overview
 
-To be added.
+PROJECT-NAME is a central repository where log operators can request to be
+witnessed.  Upon successful registration, the log operator can pick-and-chose
+from participating witnesses that configure every log PROJECT-NAME accepted.
+
+This is achieved by maintaining a list of logs that participating witnesses
+configure.  The list is community maintained because it is for the community.
+
+    TODO: figure describing this system.
+
+PROJECT-NAME only helps with the initial discovery for mutual configuration.
+Not being involved in updates or removals makes PROJECT-NAME a less juicy target
+for attacks.  (It is bad if a central repository can disable all witnessing.)
 
 ## Objectives
 
   - Help witness operators discover logs that would like to be witnessed
-    (automatically).
+    (automatically by periodically downloading a list of logs).
   - Help log operators discover witnesses they may collect cosignatures from
-    (manually).
+    (manually by registering and selecting some participating witnesses).
   - Avoid repeated configuration requests between logs and witnesses.
 
 ## Non-goals
 
-  - Have the power to centrally override any previous configuration.
-  - Say anything about which trust policy a system of logs should use.
+  - Say anything about which trust policy a system of logs should use.  It is up
+    to logs and users to select witnesses they find reliable and trustworthy.
+  - Be the sole dictator of which logs a witness operator will configure.  Use
+    of complementary log lists and other manual configuration is encouraged.
+  - Have the power to centrally override any previously applied configuration.
 
-## List of logs
+## Participating witnesses
 
-The `lists` directory contains lists of logs that would like to be witnessed.
-Formatting of these lists is documented separately, see [log-list format][].
+Below is a table of witness operators that configure logs discovered in
+PROJECT-NAME's lists.  Log operators can pick-and-chose from witnesses that
+configure them.  It is optional to collect cosignatures from a given witness.
 
-There is a single list of logs right now:
-
-  - [10qps-1Ml][]
-
-The file name describes what performance profile a witness configuring the list
-must be able to handle.  For example, `10qps-1Ml` means the list is maintained
-to work for a witness that can handle 10 add-checkpoint requests (sustained on
-average) with enough persistent storage to support at least one million logs.
-
-[10qps-1Ml]: ./lists/10qps-1Ml
-[log-list format]: ./log-list-format.md
-
-TODO: signed list, not that crucial but makes sense.
+  | Operator        | Configures     | About page                                                                                      |
+  | --------------- | -------------- | ----------------------------------------------------------------------------------------------- |
+  | Glasklar Teknik | [10qps-1Ml][]  | <https://git.glasklar.is/glasklar/services/witnessing/-/blob/main/witness.glasklar.is/about.md> |
+  | ...             | ...            | ...                                                                                             |
 
 ## Expectations on participating witnesses
 
@@ -62,36 +88,41 @@ logs, and to not remove a log from it's configuration unless abuse is detected.
 PROJECT-NAME has no opinion on what a witness operator considers abuse.  This
 and other relevant information should be documented in a witness about page.
 
-**Note:** the above means a participating witness *MUST NOT* remove or update a
-log's definition just because PROJECT-NAME publishes a new log list.  This
+Note that the above means a participating witness *MUST NOT* remove or update a
+log's definition just because PROJECT-NAME publishes an updated log list.  This
 significantly decreases the amount of power that PROJECT-NAME has, i.e.,
 PROJECT-NAME helps with initial discovery but have no influence after that.
 
+TODO: guideline on when an update is obviously bogus, don't apply it?
+
 TODO: key rotation support?
 
-## Participating witnesses
+## List of logs
 
-Below is a table of witness operators that configure different log lists.  Log
-operators that have been added to a list can pick-and-chose from witnesses that
-configure them.  It is optional to collect cosignatures from a given witness.
+For now, there is a single list of logs that would like to be witnessed.
 
-Use the listed about pages to learn what can be expected from each witness.
+  - [10qps-1Ml][]
 
-  | Operator        | Configures     | About page                                                                                      |
-  | --------------- | -------------- | ----------------------------------------------------------------------------------------------- |
-  | Glasklar Teknik | [10qps-1Ml][]  | <https://git.glasklar.is/glasklar/services/witnessing/-/blob/main/witness.glasklar.is/about.md> |
-  | ...             | ...            | ...                                                                                             |
+The file name describes what performance profile a witness configuring the list
+must be able to handle.  For example, `10qps-1Ml` means the list is maintained
+to work for a witness that can handle 10 add-checkpoint requests (sustained on
+average) with enough persistent storage to support at least one million logs.
 
-## Frequently asked questions
+The exact list format is documented separately, see [log-list format][].
 
-### How to get my log added to a list?
+TODO: detached signature?
+
+[10qps-1Ml]: ./lists/10qps-1Ml
+[log-list format]: ./log-list-format.md
+
+## Register a log for witnessing
 
 [File an issue][] or send an email to MAILING-LIST.
 
 Specify:
 
-  - The log's verification key in [vkey format][].  Please use a schema-less URL
-    and a key name that is the same as the log's [origin line][].
+  - The log's verification key in [vkey format][].  Use a schema-less URL and a
+    key name that is the same as the log's [origin line][].
   - Something that convinces the maintainers the origin line makes sense, e.g.,
     that you are from `example.org` if the origin line includes `example.org`.
   - How often the log is expected to submit add-checkpoint requests.
@@ -113,7 +144,7 @@ maintainers maintain the lists of logs in good faith to keep them reliable.
 [vkey format]: TO-BE-ADDED
 [origin line]: https://C2SP.org/tlog-checkpoint#note-text
 
-### How to get my witness added to the table?
+## Register a participating witness
 
 [File an issue][] or send an email to MAILING-LIST.  Specify the information
 needed to populate the table of participating witnesses.
@@ -125,13 +156,6 @@ For inspiration, you may look at a few previous configuration requests:
 
 **Note:** there is no guarantee that a request to be added will be granted.
 
-### My log was added to a list, now what?
+## Frequently asked questions
 
-docdoc
-
-### How to be removed from a list or a table
-
-docdoc. Won't affect what logs or witnesses already configured, but removal
-would avoid of course avoid additional configurations that make no sense.
-
-### Other FAQs / things we want to point out
+To be added?
