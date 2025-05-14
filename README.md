@@ -154,7 +154,7 @@ maintainers maintain the lists of logs in good faith to keep them reliable.
 
 ## Frequently asked questions
 
-### How to update configuration?
+### How to update an admitted log's configuration?
 
 Not supported, PROJECT-NAME only helps with the *initial discovery that
 facilitates mutual configuration between logs and witnesses*.  By not being
@@ -162,8 +162,6 @@ involved in updates, PROJECT-NAME becomes a less juicy target for attacks.
 
 This question would be better directed towards C2SP.org, where most of the
 semantics and formats that participants of PROJECT-NAME follow are defined.
-
-TODO: heading is maybe not great yet.
 
 ### What is the impact of a bogus list update?
 
