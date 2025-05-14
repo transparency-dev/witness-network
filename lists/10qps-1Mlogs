@@ -1,12 +1,11 @@
 logs/v0
-revision 0
 
 #
 # Note: example placeholder just do have something here for now...
 # https://git.glasklar.is/glasklar/services/sigsum-logs/-/blob/main/instances/seasalp.md
 #
 origin sigsum.org/v1/tree/44ad38f8226ff9bd27629a41e55df727308d0a1cd8a2c31d3170048ac1dd22a1
-vkey sigsum.org/v1/tree/44ad38f8226ff9bd27629a41e55df727308d0a1cd8a2c31d3170048ac1dd22a1+682b49db+AQ7H4WhDEZsSA3enOROsasvC0D2CQy4sNrhBsJqVhB8l
+vkey n/a
 bastion https://bastion.glasklar.is/
 qpd 86400
 contact sigsum-logs (at) glasklarteknik.se
