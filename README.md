@@ -164,6 +164,18 @@ This question would be better directed towards C2SP.org, where most of the
 semantics and formats that participants of PROJECT-NAME follow are defined.
 
 ### What is the impact of a bogus list update?
+
+A witness' previously applied configuration will not be affected.  In other
+words, participating witnesses just look at the list and configure new logs.
+
+This means the main attack vector is to inject new logs that PROJECT-NAME did
+not intend for.  Such a bogus list update may lead to DoS.  For example, if many
+bogus logs are added over night, then a witness may not be able to handle the
+required load or have enough storage left for witnessing new logs in the future.
+
+The recovery process for a full list compromise would be an open discussion that
+culminates in the participating witnesses doing some manual reconfiguration.
+
 ### What about bogus origin lines?
 ### Why are the lists not signed?
 ### Why are the lists not transparency logged?
