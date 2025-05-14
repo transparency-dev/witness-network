@@ -154,7 +154,15 @@ maintainers maintain the lists of logs in good faith to keep them reliable.
 
 ## Frequently asked questions
 
-### How do rotate a log's key?
+### How to update configuration?
+
+Not supported, PROJECT-NAME only helps with the *initial discovery that
+facilitates mutual configuration between logs and witnesses*.  By not being
+involved in updates, PROJECT-NAME becomes a less juicy target for attacks.
+
+This question would be better directed towards C2SP.org, where most of the
+semantics and formats that participants of PROJECT-NAME follow are defined.
+
 ### What is the impact of a bogus list update?
 ### What about bogus origin lines?
 ### Why are the lists not signed?
