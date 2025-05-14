@@ -171,12 +171,10 @@ A witness' previously applied configuration will not be affected.  In other
 words, participating witnesses just look at the list and configure new logs.
 
 This means the main attack vector is to inject new logs that PROJECT-NAME did
-not intend for.  Such a bogus list update may lead to DoS.  For example, if many
-bogus logs are added over night, then a witness may not be able to handle the
-required load or have enough storage left for witnessing new logs in the future.
-
-The recovery process for a full list compromise would be an open discussion that
-culminates in the participating witnesses doing some manual reconfiguration.
+not intend for.  At its worse, this may result in DoS for new logs.  For
+example, the list could become full (too many logs / too high qps).  Recovery
+would likely be an open discussion about what went wrong and how to correct it,
+ultimately culminating in participating witnesses doing manual reconfiguration.
 
 ### What about bogus origin lines?
 
