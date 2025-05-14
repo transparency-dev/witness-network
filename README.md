@@ -177,5 +177,14 @@ The recovery process for a full list compromise would be an open discussion that
 culminates in the participating witnesses doing some manual reconfiguration.
 
 ### What about bogus origin lines?
+
+PROJECT-NAME tries to verify that origin lines are reasonable, see [registration
+process for logs][].  Mistakes that someone is unhappy about ("that's my
+namespace") will surely happen eventually.  However, as long as there are no
+origin-line collisions for real-world logs the issue is quite insignificant.
+Origin lines just need to be unique for witness cosigning to be secure.
+
+[registration process for logs]: #register-a-log-for-witnessing
+
 ### Why are the lists not signed?
 ### Why are the lists not transparency logged?
