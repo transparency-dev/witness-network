@@ -188,3 +188,7 @@ Origin lines just need to be unique for witness cosigning to be secure.
 
 ### Why are the lists not signed?
 ### Why are the lists not transparency logged?
+
+Because detection of a bogus list is already pretty evident.  In other words, a
+witness that configures the wrong list will either get complaints that logs are
+not configured or eventually notice its performance budget is being overspent.
