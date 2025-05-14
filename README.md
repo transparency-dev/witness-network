@@ -163,6 +163,8 @@ involved in updates, PROJECT-NAME becomes a less juicy target for attacks.
 This question would be better directed towards C2SP.org, where most of the
 semantics and formats that participants of PROJECT-NAME follow are defined.
 
+TODO: heading is maybe not great yet.
+
 ### What is the impact of a bogus list update?
 
 A witness' previously applied configuration will not be affected.  In other
