@@ -38,6 +38,10 @@ will either not send a request to a witness or the witness will reject the log's
 `add-checkpoint` request (both because the log's public key is unknown and
 because simply cosigning any log would result in trivial denial of service).
 
+[witness protocol]: https://C2SP.org/tlog-witness
+[bastion host]: https://C2SP.org/https-bastion
+[checkpoint]: https://C2SP.org/tlog-checkpoint
+
 ## Problem statement
 
 How logs and witnesses mutually configure each other is currently adhoc - every
@@ -141,8 +145,7 @@ Here's a dense list of the information that the log operator should provide:
 **Note:** there is no guarantee that a request to be added will be granted.  The
 maintainers maintain the lists of logs in good faith to keep them reliable.
 
-[File an issue]: TO-BE-ADDED
-[vkey format]: TO-BE-ADDED
+[vkey format]: https://github.com/C2SP/C2SP/pull/119/files
 [origin line]: https://C2SP.org/tlog-checkpoint#note-text
 
 ## Get a witness into the community table
@@ -211,5 +214,3 @@ In other words, we don't sign the lists because the story for authenticity is
 good enough when trusting the distribution infrastructure and HTTPS.  This
 assessment would be different if the impact of a bogus list was higher.  See
 above why bogus lists are (by design) low impact and (by nature) easy to detect.
-
-# Appendix A - Log list format
