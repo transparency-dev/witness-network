@@ -3,21 +3,6 @@
 The target audience for this proposal is: readers that are already familiar with
 the transparency log specifications located at <https://C2SP.org>.
 
-## Outline
-
-  - A bit of background and problem statement
-  - The concrete components of the proposal
-    - List of logs
-    - Table of witnesses
-    - How to get a log into the list
-    - How to get a witness into the table
-  - Discussion in Q/A form that helps motivate the design
-
-If/when we agree about the proposal at large, we likely want a shared repository
-or website to maintain the list of logs, the table of witnesses, and other
-related documentation that makes this easy to digest for operators that wonder
-"is this for me", and if so, "what do I need to do to participate".
-
 ## Background
 
 In the [witness protocol][], log servers collect cosignatures from witnesses by
@@ -26,13 +11,13 @@ its own public endpoint for this, or establish a long-lived connection to a
 [bastion host][] that forwards requests from authorized logs to witnesses.
 
 For a log server to collect cosignatures from a witness, it needs the witness'
-URL and a public key (to verify that the returned cosignature is valid).  Note
-that from a log's perspective, even a witness behind a bastion host has a URL.
+URL and a public key (to verify that the returned cosignature is valid).
 
 For a witness to verify an `add-checkpoint` requests, it needs the log's public
-key.  The witness also needs enough space to store one [checkpoint][] per log.
+key.  The witness also needs enough space to store one [checkpoint][] per log,
+and enough compute to serve the log's request frequency over time.
 
-So, to get a functioning witnessing setup logs need to configure witnesses and
+So to get a functioning witnessing setup: logs need to configure witnesses and
 witnesses need to configure logs.  Without such *mutual configuration*, a log
 will either not send a request to a witness or the witness will reject the log's
 `add-checkpoint` request (both because the log's public key is unknown and
@@ -55,47 +40,57 @@ mutual configuration easier for operators of logs and witnesses?
 Let's establish a witness configuration network that:
 
   1. Helps witness operators discover logs that would like to be witnessed
-     *automatically by configuring new logs from a community list*.
+     *automatically by configuring new logs from a living community list*.
   2. Helps log operators discover witnesses they may collect cosignatures from
      *manually after first getting into a community list*.  Witnesses that log
      operators can pick and chose from are listed in a community table.
 
 The list of logs and the table of witnesses can be maintained by a few trusted
-community members, e.g., in a git repository or via a simple website.  There is
-a process for admitting new logs and witnesses, think "send an email to a
-mailing list and wait for a maintainer to process the registration request".
+community members, e.g., in a git repository or on a static website.  There is a
+process for admitting new logs and witnesses, think "send an email to a mailing
+list and wait for a community maintainer to process the registration request".
 
 Witnesses will want to participate because they can configure new logs from a
 living community list (as opposed to having to interact with each log operator).
 
 Logs will want to participate because they can make one request to be included
-in a community list that several participating witnesses configure.
+in a community list that several participating witnesses then configure.
 
-An overview is shown in the below figure.
+Generally speaking, a witness configuration network like this will help
+newcomers find a part of the witnessing community that is working together.
 
-    TODO: figure.
+The remainder of this document goes into further detail with regards to:
+
+  - The list of logs that the community maintainers maintain
+  - The table of witnesses that the community maintainers maintain
+  - The process to be included in the log list or witness table
+
+After this has been outlined, there's a bit of discussion in Q/A form to
+motivate some of the design choices.
 
 ## List of logs
 
-This proposal suggests a machine-readable list of logs:
+This proposal suggests a machine-readable list of logs.
 
-  - `10qps-1Mlogs`
+  - `10qps-100klogs`
 
 The file name describes what *performance profile* a witness configuring the
-list must be able to handle.  For example, `10qps-1Mlogs` means the list is
+list must be able to handle.  For example, `10qps-100klogs` means the list is
 maintained to work for a witness that can handle 10 add-checkpoint requests
-(sustained on average) with enough persistent storage to support 1 million logs.
+(sustained on average) with enough persistent storage to support 100,000 logs.
 The requests/s parameter is global, i.e., it applies for all logs combined.
 
 The exact log-list format is defined separately, see [log-list-format][].
+
+We may want different lists for different performance profiles in the future.
 
 [log-list-format]: ./log-list-format.md
 
 ## Table of participating witnesses
 
 This proposal suggests a human-readable table of participating witnesses.  The
-most important field of the table is an about page, which log operators can read
-to figure out whether it makes sense for them to collect cosignatures or not.
+table is not machine readable because log operators are expected to *anyway*
+make a manual selection of the witnesses that make sense for them to configure.
 
   | Operator        | About page                                                                                      |
   | --------------- | ----------------------------------------------------------------------------------------------- |
@@ -111,17 +106,6 @@ information should be documented in the witness's linked about page.
 
 A participating witness must configure new logs at least once per week.  A log
 is "new" if none of the already configured logs have the same origin line.
-
-## Interoperability
-
-Logs and witnesses must support:
-
-  - <https://C2SP.org/tlog-checkpoint>
-  - <https://C2SP.org/tlog-cosignature>
-  - <https://C2SP.org/tlog-witness>
-
-It is optional to support <https://C2SP.org/https-bastion>.  If bastion host is
-not supported, then the witness needs to be reachable on the public internet.
 
 ## Get a log into the community list
 
@@ -157,6 +141,17 @@ to include, and the gist is "the information needed to populate the table".
 **Note:** there is no guarantee that a request to be added will be granted.  The
 maintainers maintain the table of witnesses in good faith to keep it useful.
 
+## Interoperability
+
+This proposal suggest that logs and witnesses must support:
+
+  - <https://C2SP.org/tlog-checkpoint>
+  - <https://C2SP.org/tlog-cosignature>
+  - <https://C2SP.org/tlog-witness>
+
+It is optional to support <https://C2SP.org/https-bastion>.  If bastion host is
+not supported, then the witness needs to be reachable on the public internet.
+
 ## Discussion
 
 ### Is it mandatory to participate in this witness configuration network?
@@ -167,7 +162,7 @@ other complementary configuration, e.g., manually or via complementary witness
 configuration networks (likely to appear eventually to strike other trade-offs,
 or to depend on a different set of maintainers that use a different process).
 
-### Is there a recommended trust policy for the participating witnesses?
+### Is there a recommended trust policy that uses participating witnesses?
 
 No, it is not in scope to have an opinion on which trust policy to use.  This
 will naturally vary depending on the log ecosystem, intended use, etc.
@@ -194,7 +189,7 @@ ultimately culminating in participating witnesses doing manual reconfiguration.
 The maintainers *try* to verify that origin lines are reasonable.  Mistakes that
 someone is unhappy about ("hey - that's my namespace") will surely happen
 eventually.  However, as long as there are no origin-line collisions for real
-logs the issue is quite insignificant (origin lines just need to be unique).
+logs the issue is quite insignificant.  Origin lines just need to be unique.
 
 ### Why is the list of logs not transparency logged?
 
@@ -204,7 +199,7 @@ not configured or eventually notice its performance budget is being overspent.
 
 ### Why is the list of logs not signed?
 
-An attacker that can compromise the maintainer's distribution infrastructure
+An attacker that can compromise the maintainers' distribution infrastructure
 would also defeat any automatic pipeline signing.  This means each maintainer
 would have to sign list updates manually for there to be much value.  While not
 ruled out and doable, the overhead to manage these keys over time is likely
@@ -214,3 +209,15 @@ In other words, we don't sign the lists because the story for authenticity is
 good enough when trusting the distribution infrastructure and HTTPS.  This
 assessment would be different if the impact of a bogus list was higher.  See
 above why bogus lists are (by design) low impact and (by nature) easy to detect.
+
+## Why mailing list as registration forum?
+
+Because the large majority of participants are likely okay sending email.
+
+## Which repository / website should host this network?
+
+To be discussed, let's first agree on what we want to maintain and why.
+
+## Something else?
+
+Probably - please ask!
