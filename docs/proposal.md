@@ -143,7 +143,7 @@ maintainers maintain the table of witnesses in good faith to keep it useful.
 
 ## Interoperability
 
-This proposal suggest that logs and witnesses must support:
+This proposal suggests that logs and witnesses must support:
 
   - <https://C2SP.org/tlog-checkpoint>
   - <https://C2SP.org/tlog-cosignature>
