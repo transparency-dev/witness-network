@@ -13,7 +13,7 @@ its own public endpoint for this, or establish a long-lived connection to a
 For a log server to collect cosignatures from a witness, it needs the witness'
 URL and a public key (to verify that the returned cosignature is valid).
 
-For a witness to verify an `add-checkpoint` requests, it needs the log's public
+For a witness to verify an `add-checkpoint` request, it needs the log's public
 key.  The witness also needs enough space to store one [checkpoint][] per log,
 and enough compute to serve the log's request frequency over time.
 
