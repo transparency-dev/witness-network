@@ -15,7 +15,7 @@ ignored.  Lines starting with `#` denote comments and are also ignored.
 
     # 1st list item -- foo's log
     vkey tlog.foo.org+aaaaaa+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    origin n/a
+    origin none
     qpd 86400
     bastion https://bastion.tlog.foo.org/
     contact https://tlog.foo.org/contact
@@ -48,13 +48,13 @@ A log is defined by the below lines.  The order of lines is significant.
 `VKEY` is the log's verification key in vkey format, see
 <https://github.com/C2SP/C2SP/pull/119/files>.
 
-`ORIGIN` is either `n/a` or the log's origin line, see
-<https://C2SP.org/tlog-checkpoint#note-text>.  If `n/a`, the log's origin line
+`ORIGIN` is either `none` or the log's origin line, see
+<https://C2SP.org/tlog-checkpoint#note-text>.  If `none`, the log's origin line
 is the same as the vkey key-name.  This is recommended for newly created logs.
 
 `BASTION` is either `none` or a bastion URL the witness may connect to, see
 <https://C2SP.org/https-bastion>.  If `none`, the log operator may have fewer
-witnesses to pick-and-chose from because some are only reachable via bastions.
+witnesses to chose from because some witnesses are only reachable via bastions.
 
 `QPD` is the number of add-checkpoint requests the log may do per day.
 
