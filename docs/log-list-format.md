@@ -6,7 +6,7 @@ ignored.  Lines starting with `#` denote comments and are also ignored.
 ## Example
 
     #
-    # List:      10qps-1Mlogs
+    # List:      10qps-100klogs
     # Revision:  123
     # Generated: YYYY-MM-DD HH:MM:SS UTC
     # Other undefined debug information.
