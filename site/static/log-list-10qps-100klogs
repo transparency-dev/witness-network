@@ -1,0 +1,17 @@
+#
+# Revision:  0
+# Generated: 2025-08-15 17:42:21 UTC
+#
+# This is an experimental list where witnesses can discover logs.  The
+# work-in-progress list format is described here:
+#
+#   https://git.glasklar.is/rgdd/witness-configuration-network/-/blob/main/docs/log-list-format.md
+#
+# Witnesses that discover logs from this list should be able to persist the
+# states of 100,000 logs and support 10 add-checkpoint requests/s on average.
+#
+logs/v0
+
+#
+# There are no logs added to this list yet.
+#

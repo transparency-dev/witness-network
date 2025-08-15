@@ -1,0 +1,22 @@
+baseURL = 'https://www.example.org'
+languageCode = 'en-us'
+title = 'Witness Configuration'
+theme = "www-theme"
+
+[menu]
+  [[menu.main]]
+    name = "Log list"
+    url = "/log-list"
+    weight = 1
+  [[menu.main]]
+    name = "Witness table"
+    url = "/witness-table"
+    weight = 2
+  [[menu.main]]
+    name = "Participate"
+    url = "/participate"
+    weight = 3
+  [[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 4
