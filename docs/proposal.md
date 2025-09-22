@@ -70,21 +70,33 @@ motivate some of the design choices.
 
 ## List of logs
 
-This proposal suggests a machine-readable list of logs.
+The log-list format is defined separately, see [log-list format][].
 
-  - `10qps-100klogs`
+This proposal suggests that there are multiple log lists available at:
 
-The file name describes what *performance profile* a witness configuring the
-list must be able to handle.  For example, `10qps-100klogs` means the list is
-maintained to work for a witness that can handle 10 add-checkpoint requests
-(sustained on average) with enough persistent storage to support 100,000 logs.
+    <BASE URL>/{testing,staging,production}/<performance profile>.<num>
+
+`testing`: used for short-lived testing, development (breaks all the time).
+
+`staging`: used for longer-lived testing, prototyping, and dogfooding.
+
+`production`: not available yet, revisit later when we can offer stability. 
+
+`<performance profile>`: describes what *performance profile* a witness
+configuring the list must be able to handle.  E.g., `10qps-4klogs` means a list
+is maintained to work for a witness that can handle 10 add-checkpoint requests
+(sustained on average) with enough persistent storage to support 4,000 logs.
 The requests/s parameter is global, i.e., it applies for all logs combined.
 
-The exact log-list format is defined separately, see [log-list-format][].
+`<num>` is a sequence number.  This makes it is possible to have multiple lists
+with the same performance profile in the future.
 
-We may want different lists for different performance profiles in the future.
+Two lists are proposed to get started:
 
-[log-list-format]: ./log-list-format.md
+  - `<BASE URL>/testing/log-list.1`
+  - `<BASE URL>/staging/log-list-10qps-4klogs.1`
+
+[log-list format]: ./log-list-format.md
 
 ## Table of participating witnesses
 
@@ -92,19 +104,21 @@ This proposal suggests a human-readable table of participating witnesses.  The
 table is not machine readable because log operators are expected to *anyway*
 make a manual selection of the witnesses that make sense for them to configure.
 
-  | Operator        | About page                                                                                      |
-  | --------------- | ----------------------------------------------------------------------------------------------- |
-  | Glasklar Teknik | <https://git.glasklar.is/glasklar/services/witnessing/-/blob/main/witness.glasklar.is/about.md> |
-  | ...             | ...                                                                                             |
+  | Operator        | Configures | About page                                                                                      |
+  | --------------- | ------------------------------------------------------------------------------------------------------------ |
+  | Glasklar Teknik | list $foo  | <https://git.glasklar.is/glasklar/services/witnessing/-/blob/main/witness.glasklar.is/about.md> |
+  | ...             | ...        |                                                                                                 |
 
-A participating witness is expected to configure *ALL* logs, and to not remove
-or otherwise update a log's configuration just because the community list is
-updated.  The witness operator *MAY* make its own removals and configuration
-updates, e.g., due to detecting abuse.  The community maintainers have no
-opinion on what a witness operator considers abuse.  This and other relevant
-information should be documented in the witness's linked about page.
+A participating witness MUST say which list(s) it commits to configure.
 
-A participating witness must configure new logs at least once per week.  A log
+A participating witness is expected to configure *ALL* logs in those lists, and
+to not remove or otherwise update a log's configuration just because the
+community list is updated.  The witness operator *MAY* make its own removals and
+configuration updates, e.g., due to detecting abuse.  The community maintainers
+have no opinion on what a witness operator considers abuse.  This and other
+relevant information should be documented in the witness's linked about page.
+
+A participating witness SHOULD configure new logs at least once per week.  A log
 is "new" if none of the already configured logs have the same origin line.
 
 ## Get a log into the community list
@@ -119,12 +133,17 @@ Here's a dense list of the information that the log operator should provide:
     schema-less URL, and be the same as the log's [origin line][].
   - Something convincing the maintainers the origin line makes sense, e.g., the
     operator is from `example.org` if the origin line contains `example.org`.
+    If this is not provided and the maintainers are unsure, they can also ask.
   - How often the log is expected to submit add-checkpoint requests (qpd).
+  - If the log wants to be included in a testing/staging/production list.
   - Any other information that may make the decision to admit the log easier,
     e.g., remarks regarding utility vs required load.  (A log that requests
     cosignatures every second will be harder to get admitted to a list compared
     to a log that only requests cosignatures once per day.)
   - Contact information to someone responsible for the log's operations.
+
+**Note:** the maintainers may accept additions to the list outside of the
+mailing list, e.g., as they meet people on conferences and in chat rooms.
 
 **Note:** there is no guarantee that a request to be added will be granted.  The
 maintainers maintain the lists of logs in good faith to keep them reliable.
@@ -137,6 +156,9 @@ maintainers maintain the lists of logs in good faith to keep them reliable.
 This proposal suggests the process for getting a witness into the community
 table is to send an email to a mailing list.  There should be a HOW-TO on what
 to include, and the gist is "the information needed to populate the table".
+
+**Note:** the maintainers may accept additions to the list outside of the
+mailing list, e.g., as they meet people on conferences and in chat rooms.
 
 **Note:** there is no guarantee that a request to be added will be granted.  The
 maintainers maintain the table of witnesses in good faith to keep it useful.
@@ -172,6 +194,9 @@ will naturally vary depending on the log ecosystem, intended use, etc.
 Not supported, the proposal is scoped solely for the *initial discovery that
 facilitates mutual configuration between logs and witnesses*.  This ensures that
 the maintainers are not in a position to disrupt already configured witnessing.
+
+The maintainers will *NOT* remove logs after adding them to a list, mainly
+because this simplifies keeping track of how much capacity has been spent.
 
 ### What is the impact of a bogus list update?
 
@@ -212,11 +237,12 @@ above why bogus lists are (by design) low impact and (by nature) easy to detect.
 
 ## Why mailing list as registration forum?
 
-Because the large majority of participants are likely okay sending email.
+Because the large majority of participants are likely okay sending email.  This
+does not mean the maintainers can't process requests in other adhoc ways too.
 
 ## Which repository / website should host this network?
 
-To be discussed, let's first agree on what we want to maintain and why.
+Not part of this (technical) proposal.
 
 ## Something else?
 

@@ -9,8 +9,6 @@ vetted, and automated configuration process.  Join our growing community with a
 single request to avoid configuration overhead proportional to `logs ×
 witnesses`.
 
-[ip]: TODO
-
 ## Why a community for witness configuration?
 
 In the [witness protocol][wp], logs synchronously ask witnesses to cosign each
@@ -59,12 +57,14 @@ together, replacing many separate requests with one shared configuration step.
 
 A few community members maintain:
 
-  - A list of approved logs.
-  - A table of participating witnesses.
+  - A list of approved logs (in fact, multiple lists for
+    testing/staging/production).
+  - A table of participating witnesses (categorized by
+    testing/staging/production)
 
-Participating witnesses periodically configure *all new logs* from the community
-list.  In other words, the participating witnesses depend on the community
-maintainers' review and approval to automatically decide on new logs.
+Participating witnesses periodically configure *all new logs* from the list(s)
+they selected.  In other words, the participating witnesses depend on the
+community maintainers' review and approval to automatically decide on new logs.
 
     Step 1: Ask maintainers       Step 2: Update log list
     ┌──────────────────────┐      ┌───────────────────────────────┐
@@ -94,7 +94,7 @@ maintainers' review and approval to automatically decide on new logs.
       └──────────────────┘
 
 The process is the same to become a participating witness, except that the
-maintainers populate a human-readable table instead of a machine-readable list.
+maintainers populate human-readable tables instead of machine-readable lists.
 
 Approved log operators can now choose which participating witnesses to request
 cosignatures from---notably without ever contacting them individually.

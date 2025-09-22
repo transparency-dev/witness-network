@@ -1,3 +1,5 @@
+# About
+
 *Witness Configuration* is a community effort that reduces the barrier towards
 adopting [witness cosigning][].  The current community maintainers are:
 
