@@ -8,7 +8,7 @@ Not available yet.
 
 Appropriate for prototype usage and long-lived dogfooding:
 
-  - [log-list-10qps-4klogs.1](../staging/log-list-10qps-4klogs)
+  - [log-list-10qps-4klogs.1](../staging/log-list-10qps-4klogs.1)
 
 **Warning:** these lists are mostly stable but sometimes break anyway, e.g., as
 a result of catching regressions or (right now) due to being a work in progress.

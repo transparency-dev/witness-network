@@ -116,7 +116,7 @@ handle for all logs combined on average.  Not applicable for testing lists.)
 ### Automate discovery of logs in the selected list(s)
 
 The log-list format is documented
-[here](https://git.glasklar.is/rgdd/witness-configuration-network/-/blob/main/docs/log-list-format.md).
+[here](https://github.com/transparency-dev/witness-network/blob/main/log-list-format.md).
 
 Ensure your witness automatically downloads and applies the list(s)
 periodically.  Consider, e.g., hourly or daily reconfiguration; and use at most

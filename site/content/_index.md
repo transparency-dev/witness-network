@@ -4,7 +4,7 @@ Finding and configuring witnesses for your transparency log can be slow and
 repetitive: log operators need to track down witnesses and exchange details, and
 witness operators need to continuously decide on which new logs to cosign.
 
-*Witness Configuration* removes this friction through a shared, community
+*Witness Network* removes this friction through a shared, community
 vetted, and automated configuration process.  Join our growing community with a
 single request to avoid configuration overhead proportional to `logs ×
 witnesses`.
@@ -46,7 +46,7 @@ of witnesses to apply its configuration details.  This is a slow and repetitive
 process for logs and witnesses, creating an unfortunate barrier to
 participation.
 
-*Witness Configuration* is a community service that brings logs and witnesses
+*Witness Network* is a community service that brings logs and witnesses
 together, replacing many separate requests with one shared configuration step.
 
 [wp]: https://C2SP.org/tlog-witness
