@@ -1,0 +1,29 @@
+From nisse and elias:
+
+- Table vs list, is the distinguish really needed/helpful?  And if the
+  distinguish is machine readable vs not, other more clear terminology?
+- Want a "Security considerations" section on the deployed site.
+  - Motivate better why it's important to just discover new logs in the list,
+	i.e., it is not a good idea if removed in list = also removed in config
+  - The maintainers are kind of a CA (origin -> key)
+  - Something about origin line "verify" by maintainers / what review they do
+    when operators ask to become participants
+  - Something about maintainers not removing from log list?
+  - Something about how the maintainers here are not the root of trust of
+    trust policies, that's something log ecosystems set themselves.  And
+	that trust in witness = has nothing to do with trust in maintainers.
+- Is it in scope to have >1 vkey per origin line?
+- nit: example log list and specification are inconsistent at the moment
+- qpd: ok, works
+- origin line: want it to be stated the operator should "own" the URL
+- suggestion: clarify it's a public mailing list
+- suggestion: log list name with <performance profile> = weird name if you
+  haven't got any explanation about it.  Would be nice to explain it.
+- Missing "test" things, e.g., test log list, test witnesses.
+- Do we need somewhere to say "this is what's happening right now in the witness
+  network"; "one witness had this particular issue..."?  Perhaps a timeline?
+- Recommend trust policy - out of scope? Yes.
+- If maintainers want to document decisions, enough to do that in git history;
+  keep this simple so it doesn't become a headache to be a maintainer.
+- Do all logs and witnesses need to participate? No.
+- Overall: like the direction and the work done so far
