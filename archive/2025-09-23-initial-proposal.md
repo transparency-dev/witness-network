@@ -1,3 +1,5 @@
+**Status:** initial proposal that we're iterating from as of 2025-09-23.
+
 # Proposal on witness configuration network
 
 The target audience for this proposal is: readers that are already familiar with
@@ -96,7 +98,7 @@ Two lists are proposed to get started:
   - `<BASE URL>/testing/log-list.1`
   - `<BASE URL>/staging/log-list-10qps-4klogs.1`
 
-[log-list format]: ./log-list-format.md
+[log-list format]: ./2025-09-23-log-list-format.md
 
 ## Table of participating witnesses
 
