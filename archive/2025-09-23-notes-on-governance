@@ -1,0 +1,10 @@
+Brief summary of our plan for governance:
+
+  1. The individuals are the maintainers / stakeholders, not their
+	 organizations.  But each individual can of course chose to list a
+	 current affiliation, e.g., Google TrustFabric / Transparency.dev.
+  2. A static witness network site is deployed on a domain that's not
+	 tied to any of our organizations, and with a name that reflects
+	 exactly what this is about (e.g., witness-network.org or similar).
+  3. The maintainers need a working directory somewhere.  We're happy to
+     have this publicly in the Transparency.Dev GitHub organization.

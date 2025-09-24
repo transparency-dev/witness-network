@@ -1,0 +1,22 @@
+# Witness tables
+
+## Production
+
+Not available yet.
+
+## Staging
+
+| Operator | Configures | About page                               | 
+| -------- | ---------- | ---------------------------------------- |
+
+**Warning:** these witnesses try to keep things stable and working, but can't
+promise much yet since witness configuration is a work-in-progress service.
+
+## Testing
+
+| Operator | Configures | About page                               | 
+| -------- | ---------- | ---------------------------------------- |
+
+**Warning:** these witnesses are just trying things out, or are otherwise just
+development and test witnesses that come and go, break, etc.  Let us know if
+something has not been working for a while and we will update this table.

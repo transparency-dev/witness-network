@@ -1,0 +1,118 @@
+---Notes by Al that we discussed while shaping initial proposal
+
+*1. meta: ecosystems vs. logs  *
+1.1 If individual logs may pick and choose from the entire list of
+witnesses, then, in an ecosystem with more than one log, all ecosystem
+participants in all ecosystems must know and trust all witnesses equally.
+ Probably not a huge problem right now, but what happens when we start
+getting witnesses run by the *Democratic Republic Of Freedom,* etc.
+
+*1.2. Perhaps ecosystems end up forcing all participating logs to use an
+ecosystem-agreed subset of witnesses? *
+I imagine this would probably boil down to a couple of "whales" choosing
+and everyone else must go along - e.g. in CT this would likely be similar
+to the situation we have currently where UAs are all free to have their own
+list of approved logs as long as those log lists are *not incompatible
+with *(effectively *"identical to"*) Chrome's.
+Is this important? I'm not sure, although in the above situation we would
+currently end up with logs which will never use witnesses outside the
+ecosystem blessed set taking up a "slot" in all witness configs. This seems
+like not a huge problem at the current stage of the game.
+
+*2. list of logs*
+
+*2.1 I like the idea of performance profiles, but I can see a couple of
+potential issues in the not too distant future so might be worth chewing
+through now:*
+Currently the proposed naming for the log list is helpful to the
+maintainers to facilitate strict bin packing of witness capacity, however:
+  - The current scheme would hit a problem when we exhaust 10qps of
+capacity and the witness operators' response is to spin up a 2nd set of
+witnesses with identical capacity: we'll need a 10qps-100klogs.2 file or
+similar.
+  - When witness oprs develop a 40qps & 400k logs capacity witness we'll
+either need a new 40qps-400klogs file which is essentially the
+concatenation of the 10qps-100klogs{,.1,.2,.3}  files, or that witness just
+configures from the `10k-*` files.
+
+Either way, though, as soon as there's a 2nd list (either because we
+exhaust the capacity of the original, or newer witnesses with far higher
+capacity come along and we want to accept many more logs), then we need the
+witnesses to be able to define *which* list(s) they commit to configure
+from.
+
+*2.2. Orthogonal groupings*
+It would be useful for maintainers, as well as log and witness oprs, to
+have a scheme/mechanism for grouping orthogonally to performance, e.g.:
+- "high value" logs vs someone's pet project log - if we've got 10qps of
+"high trust" witness capacity, and, say, 100kqps of YOLO witness capacity,
+the maintainers are *likely* to want to make judgement calls on where to
+allocate
+- prod/staging groups - a way to let new new log instances/implementations
+go through the flow of being provisioned and interacting with "real"
+witnesses (perhaps with lower/no guarantees about how long the log stays
+provisioned on such witnesses, etc.)
+
+There will be others, e.g. "ecosystem" (perhaps "big" ecosystems only - is
+this a terrible idea?), or "behind the great firewall" where it might only
+really make sense to pair with witnesses on the same side. Maybe we don't
+need to worry about these at the moment.
+
+*2.3. Proposal*
+Given the above two thoughts, how about if  files are named
+{prod,nonprod}/<name>.<seq> where *name* is some short descriptive name and
+*seq* is just a monotonic counter from zero for that name, and every such
+file is limited to a capacity of 10qps/10k logs. Witnesses are free to
+choose which union of files they configure from based on their
+capacity/preference, but they must publish the list of files used in their
+witness table entry.
+
+*3 Log list format*
+*3.1 origin*
+It makes me sad that ORIGIN is a required field when it's only really there
+to support "legacy" logs.
+
+*3.2 bastion*
+I'm assuming the implication here is that *logs run their own* bastions?
+This seems like a bad idea to me for a couple of reasons:
+ - primarily: we're proposing lists which come in blocks of 100k logs which
+witnesses MUST support, every unique bastion implies a long-lived socket
+from a potentially low power and low RAM device, this is not a good
+combination of statements :)
+ - I'm expecting a large increase in the number of
+"serverless"/posix-oneshot type logs where there is no log frontend running
+- if such a log needs to run a bastion in order to get signatures that
+kinda undoes much of the gain of having serverless logs.
+
+This feels much more like a property of the witness - "you can reach me via
+this set of URLs", and then it's on the witness opr to either run a bastion
+themselves, or arrange to register their witnesses with one or more
+friendly bastion operators :)
+
+*4. Table of participating witnesses*
+*4.1 "A participating witness must configure"*
+nit: I think this should be a SHOULD - what would we do if they skipped a
+week?
+
+*4.2 Can the maintainers remove logs?*
+I would guess not, otherwise since witnesses are forbidden from doing the
+same "just because the community list is updated" the 10qps limit could
+easily be breached (the witness is forced to support the load from the
+union of all logs ever present in that list).
+
+*5 Is it mandatory to participate in this witness configuration network?*
+
+Agreed it's not mandatory, just pointing out that we're bin-packing
+all-or-nothing lists, so if low-throughput witnesses commit fractions of
+their capacity elsewhere we need to think about whether 10qps is an
+appropriate amount of capacity to force witnesses to commit (based on my
+understanding that even if there's only a single log in the list when the
+witness "signs up", it MUST essentially reserve capacity to be able to
+configure all possible additions to that in the future up to 10q-100k [or
+whatever we settle on]).
+
+*6. What is the impact of a bogus list update?*
+Maybe an alternative phrasing for what these lists are is something around
+"add-a-log" commands - the witness config isn't the list, it's what you get
+when you execute each "add" mutation from the list to your existing witness
+config.

@@ -1,0 +1,26 @@
+baseURL = 'https://www.example.org'
+languageCode = 'en-us'
+title = 'Home'
+theme = "www-theme"
+
+[menu]
+  [[menu.main]]
+    name = "Participate"
+    url = "/participate"
+    weight = 1
+  [[menu.main]]
+    name = "Log lists"
+    url = "/log-lists"
+    weight = 2
+  [[menu.main]]
+    name = "Witness tables"
+    url = "/witness-tables"
+    weight = 3
+  [[menu.main]]
+    name = "FAQs"
+    url = "/faqs"
+    weight = 4
+  [[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 5
