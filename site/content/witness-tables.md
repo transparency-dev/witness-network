@@ -10,7 +10,7 @@ Not available yet.
 | -------- | ---------- | ---------------------------------------- |
 
 **Warning:** these witnesses try to keep things stable and working, but can't
-promise much yet since witness configuration is a work-in-progress service.
+promise much since our witness network is a work-in-progress service.
 
 ## Testing
 
