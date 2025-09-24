@@ -1,0 +1,3 @@
+[submodule "site/themes/www-theme"]
+	path = site/themes/www-theme
+	url = https://git.rgdd.se/www-theme
