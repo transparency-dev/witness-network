@@ -1,8 +1,16 @@
-Demo site where the target audience is someone who knows what a transparency log
-is, but who doesn't have all the details for witnessing cosigning or why they
-probably want to participate in this witness configuration community.
+---README
 
-Quickstart:
+Witness network demo site.
+
+---Target audience
+
+* Knows roughly what a transparency log is
+* Knows roughly what a cosigning witness is
+* May be thinking about operating a witness
+* May be thinking about operating a witnessed log
+* Have not thought much about configuration yet
+
+---Quickstart
 
   apt install hugo
   git submodule update --init --recursive
