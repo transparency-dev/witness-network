@@ -1,0 +1,51 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  SERVER: "listen.sigsum.org"
+  USER: "sitedeploy"
+  PORT: "4722"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install deps
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install -qqy hugo tar openssh-client
+
+      - name: Build hugo site
+        run: |
+          (cd site && hugo)
+
+      - name: Create site tarball
+        run: |
+          tar cf site.tar -C site/public .
+
+      - name: Prepare SSH key-file
+        run: |
+          mkdir -p ~/.ssh
+          echo -n "${{ secrets.SITE_SSH_PRIV_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Deploy site on server
+        run: |
+          cat site.tar | \
+            ssh -T \
+              -l "$USER" \
+              -i ~/.ssh/id_ed25519 \
+              -o "StrictHostKeyChecking no" \
+              -p "$PORT" \
+              "$SERVER"
