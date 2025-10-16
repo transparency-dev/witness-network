@@ -2,13 +2,17 @@
 
 Submit your participation request by sending an email to:
 
-    TODO: participate (at) lists.example.org    
+    participate (at) lists.witness-network.org
 
 Guidelines on what information to include are outlined below.  Refer to the
 mailing list [archive][] for inspiration from previous participation requests.
 
 The maintainers may process requests adhoc outside of the mailing list, e.g.,
-when meeting the community on conferences and in various chat rooms.
+when meeting the community on conferences and in various chat rooms like:
+
+    #witness-network @ OFTC.net
+    #witness-network @ matrix.org
+    #witness-network @ transparency.dev/slack
 
 [archive]: TODO
 
