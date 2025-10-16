@@ -1,4 +1,4 @@
-baseURL = 'https://www.example.org'
+baseURL = 'https://witness-network.org/'
 languageCode = 'en-us'
 title = 'Home'
 theme = "www-theme"
