@@ -1,0 +1,42 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install deps
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install -qqy hugo tar openssh-client
+
+      - name: Build hugo site
+        run: |
+          (cd site && hugo)
+
+      - name: Prepare SSH key-file
+        run: |
+          mkdir -p ~/.ssh
+          echo -n "${{ secrets.SITE_SSH_PRIV_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Deploy site on server
+        run: |
+          tar -c -O -C site/public . | \
+            ssh -CT \
+              -l "${{ secrets.SITE_USER }}" \
+              -i ~/.ssh/id_ed25519 \
+              -o "StrictHostKeyChecking no" \
+              -p "${{ secrets.SITE_PORT }}" \
+              "${{ secrets.SITE_DOMAIN_NAME }}"
