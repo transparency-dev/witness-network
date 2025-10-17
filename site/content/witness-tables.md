@@ -14,9 +14,10 @@ promise much since our witness network is a work-in-progress service.
 
 ## Testing
 
-| Operator    | Configures         | About page                               | 
-| ----------- | ------------------ | ---------------------------------------- |
-| TrustFabric | testing/log-list.1 | https://transparency.dev/witnesses/      |
+| Operator        | Configures         | About page                               |
+| --------------- | ------------------ | ---------------------------------------- |
+| Florian Larysch | testing/log-list.1 | https://remora.n621.de                   |
+| TrustFabric     | testing/log-list.1 | https://transparency.dev/witnesses/      |
 
 **Warning:** these witnesses are just trying things out, or are otherwise just
 development and test witnesses that come and go, break, etc.  Let us know if
