@@ -14,7 +14,7 @@ when meeting the community on conferences and in various chat rooms like:
     #witness-network @ matrix.org
     #witness-network @ transparency.dev/slack
 
-[archive]: TODO
+[archive]: https://lists.witness-network.org/mailman3/hyperkitty/list/participate@lists.witness-network.org/
 
 ## Log guidelines
 
