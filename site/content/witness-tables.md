@@ -18,6 +18,7 @@ promise much since our witness network is a work-in-progress service.
 | --------------- | ---------------------- | ---------------------------------------------- |
 | Elias Rudberg   | [testing/log-list.1][] | https://witness1.smartit.nu/witness1/about.txt |
 | Florian Larysch | [testing/log-list.1][] | https://remora.n621.de                         |
+| Mullvad VPN AB  | [testing/log-list.1][] | https://witness.stagemole.eu/about             |
 | rgdd            | [testing/log-list.1][] | https://www.rgdd.se/poc-witness/about          |
 | TrustFabric     | [testing/log-list.1][] | https://transparency.dev/witnesses/            |
 
