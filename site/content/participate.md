@@ -160,4 +160,9 @@ operator, such as whether it is a production witness, how it's operated, etc.
 Please consult the about pages of participating witnesses to get inspiration and
 compose something that strikes the right balance for your intended operations.
 
+## Known implementations
+
+ - [transparency-dev/witness](https://github.com/transparency-dev/witness)
+ - [litewitness](https://github.com/FiloSottile/torchwood/blob/main/cmd/litewitness)
+
 [bh]: https://C2SP.org/https-bastion
