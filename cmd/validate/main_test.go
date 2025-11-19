@@ -150,6 +150,29 @@ func TestValidateLogList(t *testing.T) {
 			contact
 			`,
 			wantErr: true,
+		}, {
+			name: "bad keyword ordering",
+			logList: `
+			logs/v0
+			vkey log.staging.ct.example.com+3af057ed+AcOM/FdR90fZeCLT4OGd4F+RA38KwLzJ1vdJvX+3LMJW
+			qpd 86400
+			origin some legacy origin line
+			contact me@example.com
+			`,
+			wantErr: true,
+		}, {
+			name: "trailing partial log",
+			logList: `
+			logs/v0
+			vkey log.staging.ct.example.com+3af057ed+AcOM/FdR90fZeCLT4OGd4F+RA38KwLzJ1vdJvX+3LMJW
+			origin some legacy origin line
+			qpd 86400
+
+			contact me@example.com
+			vkey log.example.com/v1/tree/4e89cc51651f0d95f3c6127c15e1a42e3ddf7046c5b17b752689c402e773bb4d+d15ef221+AehD64OcCnZ3q4cJrhnAHgjSjoZq3gKPDUGOgkAqokJG
+			qpd 8640
+			`,
+			wantErr: true,
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {

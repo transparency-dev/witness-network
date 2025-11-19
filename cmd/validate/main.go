@@ -27,7 +27,7 @@ import (
 	"strconv"
 	"strings"
 
-	f_note "github.com/transparency-dev/formats/note"
+	"golang.org/x/mod/sumdb/note"
 )
 
 func init() {
@@ -67,10 +67,11 @@ func main() {
 
 // These iotas represent a simple state machine for parsing the log configs.
 const (
-	logStateVkey    = iota
-	logStateOrigin  = iota
-	logStateQPD     = iota
-	logStateContact = iota
+	logStateUnknown = "unknown"
+	logStateVkey    = "vkey"
+	logStateOrigin  = "origin"
+	logStateQPD     = "qpd"
+	logStateContact = "contact"
 
 	logHeaderV0 = "logs/v0"
 )
@@ -78,9 +79,8 @@ const (
 // validateLogList checks that the bytes provided are a valid loglist, returning an error otherwise.
 func validateLogList(b []byte) error {
 	expectHeader := true
-	logState := logStateVkey
+	expect := logStateVkey
 	s := bufio.NewScanner(bytes.NewReader(b))
-	s.Split(stripSplit)
 
 	for line, num := range lineIter(s) {
 		if expectHeader {
@@ -88,6 +88,7 @@ func validateLogList(b []byte) error {
 				return fmt.Errorf("line %d: expected %s header, but found %q", num, logHeaderV0, line)
 			}
 			expectHeader = false
+			expect = logStateVkey
 			continue
 		}
 
@@ -96,62 +97,62 @@ func validateLogList(b []byte) error {
 		if len(bits) == 0 {
 			panic("encountered empty line, this shouldn't happen!")
 		}
-		switch logState {
+
+		switch kw, params := bits[0], bits[1:]; kw {
 		case logStateVkey:
-			if bits[0] != "vkey" {
-				return fmt.Errorf("line %d: expected vkey keyword, but found %q", num, bits[0])
+			if expect != logStateVkey {
+				return fmt.Errorf("line %d: found vkey keyword, but expected %q", num, expect)
 			}
-			if err := expectParts("vkey", len(bits), 2); err != nil {
+			if err := expectParts(logStateVkey, len(params), 1); err != nil {
 				return fmt.Errorf("line %d: %v", num, err)
 			}
-			if _, err := f_note.NewVerifier(bits[1]); err != nil {
+			if _, err := note.NewVerifier(params[0]); err != nil {
 				return fmt.Errorf("line %d: invalid vkey - %v", num, err)
 			}
-			logState = logStateOrigin
+			expect = logStateOrigin
 			continue
 		case logStateOrigin:
-			if bits[0] == "qpd" {
-				goto originNotPresent
+			if expect != logStateOrigin {
+				return fmt.Errorf("line %d: found origin keyword, but expcted %q", num, expect)
 			}
-			if bits[0] != "origin" {
-				return fmt.Errorf("line %d: expected origin or qpd keyword, but found %q", num, bits[0])
-			}
-			if len(bits) == 1 {
+			if len(params) == 0 {
 				return fmt.Errorf("line: %d: expected origin parameter, but none found", num)
 			}
-			logState = logStateQPD
+			expect = logStateQPD
 			continue
-		originNotPresent:
-			fallthrough
 		case logStateQPD:
-			if bits[0] != "qpd" {
-				return fmt.Errorf("line %d: expected qpd keyword, but found %q", num, bits[0])
+			// Origin is optional
+			if expect == logStateOrigin {
+				expect = logStateQPD
 			}
-			if err := expectParts("qpd", len(bits), 2); err != nil {
+			if expect != logStateQPD {
+				return fmt.Errorf("line %d: found qpd keyword, but expected %q", num, expect)
+			}
+			if err := expectParts(logStateQPD, len(params), 1); err != nil {
 				return fmt.Errorf("line %d: %v", num, err)
 			}
-			if v, err := strconv.ParseInt(bits[1], 10, 64); err != nil {
+			if v, err := strconv.ParseInt(params[0], 10, 64); err != nil {
 				return fmt.Errorf("line %d: invalid QPD value - %v", num, err)
 			} else if v <= 0 {
 				return fmt.Errorf("line %d: invalid QPD value <= 0", num)
 			}
-			logState = logStateContact
+			expect = logStateContact
 			continue
 		case logStateContact:
-			if bits[0] != "contact" {
-				return fmt.Errorf("line %d: expected contact keyword, but found %q", num, bits[0])
+			if expect != logStateContact {
+				return fmt.Errorf("line %d: found contact keyword, but expected %q", num, expect)
 			}
-			if len(bits) == 1 {
+			if len(params) == 0 {
 				return fmt.Errorf("line %d: no contact details provided", num)
 			}
-			logState = logStateVkey
+			expect = logStateVkey
 			continue
 		}
 	}
 	if err := s.Err(); err != nil {
 		return err
 	}
-	if logState != logStateVkey {
+	if expect != logStateVkey {
 		return fmt.Errorf("incomplete log config at end of file")
 	}
 	return nil
@@ -179,9 +180,13 @@ func lineIter(s *bufio.Scanner) iter.Seq2[string, int] {
 			line := s.Text()
 			lineNum++
 
+			line = strings.TrimSpace(line)
 			// Annoyingly, it seems we can't return nil from stripSplit when the whole line is a comment or the scanner
 			// simply gives up, so handle empty lines here instead.
 			if line == "" {
+				continue
+			}
+			if line[0] == '#' {
 				continue
 			}
 			if !yield(line, lineNum) {
@@ -189,36 +194,6 @@ func lineIter(s *bufio.Scanner) iter.Seq2[string, int] {
 			}
 		}
 	}
-}
-
-// stripSplit is a bufio.SplitFunc which strips out leading/trailing whitespace and comments.
-func stripSplit(data []byte, atEOF bool) (int, []byte, error) {
-	if atEOF && len(data) == 0 {
-		return 0, nil, nil
-	}
-	if i := bytes.IndexByte(data, '\n'); i >= 0 {
-		// We have a full newline-terminated line.
-		return i + 1, filterLine(data[0:i]), nil
-	}
-	// If we're at EOF, we have a final, non-terminated line. Return it.
-	if atEOF {
-		return len(data), filterLine(data), nil
-	}
-	// Request more data.
-	return 0, nil, nil
-}
-
-// filterLine drops a terminal \r from the data and removes surrounding whitespace and comments.
-func filterLine(line []byte) []byte {
-	if len(line) > 0 && line[len(line)-1] == '\r' {
-		line = line[0 : len(line)-1]
-	}
-
-	line = bytes.TrimSpace(line)
-	if len(line) > 0 && line[0] == '#' {
-		return []byte{}
-	}
-	return line
 }
 
 // mustResolveFiles returns a list of filepaths matching the provided loglist glob flags, or an error if no paths match.
