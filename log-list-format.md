@@ -2,6 +2,7 @@
 
 This document describes a line-terminated log-list format.  Blank lines are
 ignored.  Lines starting with `#` denote comments and are also ignored.
+Non-empty lines have all leading and trailing whitespace removed before processing.
 
 ## Example
 
@@ -44,12 +45,14 @@ strict.  Lines that are optional are denoted by square brackets.
 
 `VKEY` is the log's verification key in vkey format, see
 <https://github.com/C2SP/C2SP/pull/119/files>.
+Currently, only ed25519 `alg1` type keys are permitted.
 
 `ORIGIN` the log's origin line, see
 <https://C2SP.org/tlog-checkpoint#note-text>.  If omitted, the log's origin line
 defaults to the vkey key-name.  This is recommended for newly deployed logs.
 
 `QPD` is the number of add-checkpoint requests the log may do per day.
+It MUST be a number in the range [1, 2^31) encoded as an ASCII decimal consisting of characters in the range `0`-`9` only, with no leading zeroes.
 
 `CONTACT` is an arbitrary string useful for humans to reach the log operator.
 
