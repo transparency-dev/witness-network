@@ -131,10 +131,10 @@ func validateLogList(b []byte) error {
 			if err := expectParts(logStateQPD, len(params), 1); err != nil {
 				return fmt.Errorf("line %d: %v", num, err)
 			}
-			if v, err := strconv.ParseInt(params[0], 10, 64); err != nil {
+			if v, err := strconv.ParseInt(params[0], 10, 32); err != nil {
 				return fmt.Errorf("line %d: invalid QPD value - %v", num, err)
-			} else if v <= 0 {
-				return fmt.Errorf("line %d: invalid QPD value <= 0", num)
+			} else if v <= 0 || v >= 1<<31 {
+				return fmt.Errorf("line %d: invalid QPD value, must be in the range [1, 2^31)", num)
 			}
 			expect = logStateContact
 			continue

@@ -133,6 +133,15 @@ func TestValidateLogList(t *testing.T) {
 			`,
 			wantErr: true,
 		}, {
+			name: "qpd too large",
+			logList: `
+			logs/v0
+			vkey log.staging.ct.example.com+3af057ed+AcOM/FdR90fZeCLT4OGd4F+RA38KwLzJ1vdJvX+3LMJW
+			qpd 2147483648
+			contact me@example.com
+			`,
+			wantErr: true,
+		}, {
 			name: "qpd not positive",
 			logList: `
 			logs/v0
