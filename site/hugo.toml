@@ -30,3 +30,11 @@ theme = "www-theme"
     name = "About"
     url = "/about"
     weight = 5
+
+[module]
+  [[module.mounts]]
+    source = "content"
+	target = "content"
+  [[module.mounts]]
+    source = "../log-list-format.md"
+    target = "content/log-list-format.md"

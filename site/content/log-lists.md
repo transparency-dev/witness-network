@@ -1,5 +1,7 @@
 # Log lists
 
+The following log lists conform to the [log-list format](/log-list-format).
+
 ## Production
 
 Not available yet.
