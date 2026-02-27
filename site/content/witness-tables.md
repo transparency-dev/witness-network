@@ -8,6 +8,7 @@ Not available yet.
 
 | Operator    | Configures                                                  | About page                         | 
 | ----------- | ----------------------------------------------------------- | ---------------------------------- |
+| Geomys      | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][] | https://geomys.org/witness/navigli |
 | TrustFabric | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][] | https://transparency.dev/witnesses |       
 
 **Warning:** these witnesses try to keep things stable and working, but can't
@@ -19,7 +20,6 @@ promise much since our witness network is a work-in-progress service.
 | --------------- | ---------------------- | ---------------------------------------------- |
 | Elias Rudberg   | [testing/log-list.1][] | https://witness1.smartit.nu/witness1/about.txt |
 | Florian Larysch | [testing/log-list.1][] | https://remora.n621.de                         |
-| Geomys          | [testing/log-list.1][] | https://geomys.org/witness/navigli             |
 | Mullvad VPN AB  | [testing/log-list.1][] | https://witness.stagemole.eu/about             |
 | rgdd            | [testing/log-list.1][] | https://www.rgdd.se/poc-witness/about          |
 | TrustFabric     | [testing/log-list.1][] | https://transparency.dev/witnesses/            |
