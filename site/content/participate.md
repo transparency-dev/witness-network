@@ -107,9 +107,11 @@ Examples:
 
 ### Select log list(s)
 
-Which [log list(s)][ll] will you be configuring?  Choose between testing,
-staging, and production.  Select the largest performance profile you can
-accommodate.
+Which [log list(s)][ll] will you be configuring?
+
+Choose between testing, staging, and production.  Within testing, staging, and
+production you would typically configure all lists that your witness can
+accommodate by starting with lower performance profiles and moving upwards.
 
 (A performance profile defines the number of logs your witness can keep
 persistent state for, and how many add-checkpoint requests your witness can
