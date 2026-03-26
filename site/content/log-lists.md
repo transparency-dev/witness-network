@@ -1,6 +1,8 @@
 # Log lists
 
 The following log lists conform to the [log-list format](/log-list-format).
+They are maintained to be non-overlapping, so that it is meaningful to configure
+the union of multiple lists.
 
 ## Production
 
@@ -11,6 +13,7 @@ Not available yet.
 Appropriate for prototype usage and long-lived dogfooding:
 
   - [log-list-10qps-4klogs.1](https://staging.witness-network.org/log-list-10qps-4klogs.1)
+  - [log-list-100qps-40klogs.1](https://staging.witness-network.org/log-list-100qps-40klogs.1)
 
 **Warning:** these lists are mostly stable but sometimes break anyway, e.g., as
 a result of catching regressions or (right now) due to being a work in progress.
