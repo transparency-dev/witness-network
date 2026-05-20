@@ -9,7 +9,7 @@ Not available yet.
 | Operator        | Configures                                                                                         | About page                         | 
 | --------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------- |
 | Geomys          | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://geomys.org/witness/navigli |
-| Mullvad VPN AB  | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][]                                        | https://witness.stagemole.eu/about |
+| Mullvad VPN AB  | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://witness.stagemole.eu/about |
 | TrustFabric     | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://transparency.dev/witnesses |       
 
 **Warning:** these witnesses try to keep things stable and working, but can't
