@@ -44,7 +44,7 @@ strict.  Lines that are optional are denoted by square brackets.
     contact CONTACT
 
 `VKEY` is the log's verification key in vkey format, see
-<https://github.com/C2SP/C2SP/blob/main/signed-note.md#verifier-keys>.  Only the
+<https://c2sp.org/signed-note#verifier-keys>.  Only the
 key types specified by <https://C2SP.org/tlog-cosignature> are supported, which
 at the time of writing includes Ed25519 and ML-DSA-44.
 
