@@ -16,6 +16,28 @@ when meeting the community on conferences and in various chat rooms like:
 
 [archive]: https://lists.witness-network.org/mailman3/hyperkitty/list/participate@lists.witness-network.org/
 
+## Compatibility requirements
+
+Witnesses and logs need to interoperate in order for the witness network to
+function. The network, therefore, relies on several of the `tlog` specifications
+from the [C2SP](https://c2sp.org) project:
+
+  - [tlog-witness][] defines a witness API contract.
+  - [tlog-checkpoint][] defines how logs must represent their state when
+    interacting with witnesses.
+  - [tlog-cosignature][] defines the signature schemes used on `checkpoints`.
+
+To participate in the witness network:
+
+  - Logs and witnesses MUST be compliant with the [`tlog-witness`[]]
+    specification.
+  - Witnesses MUST support verification of either `MLDSA-44` or `ed25519`
+    signatures from logs, but SHOULD support both.
+  - Witnesses MUST return `MLDSA-44` cosignatures, and MAY also return
+    `ed25519` cosignatures.
+  - Logs and witnesses MAY also additionally support and return other signature
+    types, e.g. in order to also participate in other networks or ecosystems.
+
 ## Log guidelines
 
 ### Specify origin line
@@ -34,8 +56,16 @@ Examples of origin lines:
 ### Specify public key
 
 Your log signs [checkpoints][] before sending them to [witnesses][].  Specify
-the public key in [vkey format][].  Use key type 0x01 (Ed25519).  For key name,
-we recommend using the same string as the log's origin line.
+the public key in [vkey format][]. Keys may be of the following types:
+
+  - `0x01` (ed25519),
+  - `0x04` (Timestamped ed25519 cosignature/v1),
+  - `0x06` (Timestamped MLDSA-44 cosignature/v1).
+
+but we recommend that logs use type 0x06 (Timestamped MLDSA-44 cosignature/v1).
+
+For the key name, we strongly recommend using the same string as the log's
+origin line.
 
 Examples of public keys:
 
@@ -148,8 +178,10 @@ witness is operated?  Specify an about page URL.
 
 The about page should at least include:
 
-  - The witness public key in [vkey format][].  Use key type 0x04
-    (cosignature/v1).  Similar to logs, we recommend using a schema-less URL for
+  - The witness public key in [vkey format][]. Use key type `0x06` (Timestamped
+    MLDSA-44 cosignature/v1), and, ideally, an additional type `0x04`
+    (Timestamped ed25519 consignature/v1) key for compatibility.
+    Similar to logs, we strongly recommend using a schema-less URL for
     the name.
   - An [add-checkpoint URL][ac] (which may be referring to a
     [bastion-host][bh]).
@@ -168,3 +200,6 @@ compose something that strikes the right balance for your intended operations.
  - [litewitness](https://github.com/FiloSottile/torchwood/blob/main/cmd/litewitness)
 
 [bh]: https://C2SP.org/https-bastion
+[tlog-checkpoint]: https://C2SP.org/tlog-checkpoint
+[tlog-cosignature]: https://C2SP.org/tlog-cosignature
+[tlog-witness]: https://C2SP.org/tlog-witness
