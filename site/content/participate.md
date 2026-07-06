@@ -31,10 +31,10 @@ To participate in the witness network:
 
   - Logs and witnesses MUST be compliant with the [`tlog-witness`[]]
     specification.
-  - Witnesses MUST support verification of either `MLDSA-44` or `ed25519`
+  - Witnesses MUST support verification of either `ML-DSA-44` or `Ed25519`
     signatures from logs, but SHOULD support both.
-  - Witnesses MUST return `MLDSA-44` cosignatures, and MAY also return
-    `ed25519` cosignatures.
+  - Witnesses MUST return `ML-DSA-44` cosignatures, and MAY also return
+    `Ed25519` cosignatures.
   - Logs and witnesses MAY also additionally support and return other signature
     types, e.g. in order to also participate in other networks or ecosystems.
 
@@ -58,11 +58,11 @@ Examples of origin lines:
 Your log signs [checkpoints][] before sending them to [witnesses][].  Specify
 the public key in [vkey format][]. Keys may be of the following types:
 
-  - `0x01` (ed25519),
-  - `0x04` (Timestamped ed25519 cosignature/v1),
-  - `0x06` (Timestamped MLDSA-44 cosignature/v1).
+  - `0x01` (Ed25519),
+  - `0x04` (Timestamped Ed25519 cosignature/v1),
+  - `0x06` (Timestamped ML-DSA-44 cosignature/v1).
 
-but we recommend that logs use type 0x06 (Timestamped MLDSA-44 cosignature/v1).
+but we recommend that logs use type 0x06 (Timestamped ML-DSA-44 cosignature/v1).
 
 For the key name, we strongly recommend using the same string as the log's
 origin line.
@@ -179,8 +179,8 @@ witness is operated?  Specify an about page URL.
 The about page should at least include:
 
   - The witness public key in [vkey format][]. Use key type `0x06` (Timestamped
-    MLDSA-44 cosignature/v1), and, ideally, an additional type `0x04`
-    (Timestamped ed25519 consignature/v1) key for compatibility.
+    ML-DSA-44 cosignature/v1), and, ideally, an additional type `0x04`
+    (Timestamped Ed25519 consignature/v1) key for compatibility.
     Similar to logs, we strongly recommend using a schema-less URL for
     the name.
   - An [add-checkpoint URL][ac] (which may be referring to a
