@@ -1,8 +1,11 @@
 # Log-list format
 
-This document describes a line-terminated log-list format.  Blank lines are
-ignored.  Lines starting with `#` denote comments and are also ignored.
-Non-empty lines have all leading and trailing whitespace removed before processing.
+This document describes a line-terminated log-list format.
+
+Lines are separated by newline (0x0A) characters.
+Lines have all leading and trailing space (0x20) and tab (0x09) removed before processing.
+Blank lines are ignored.
+Lines starting with `#` denote comments and are also ignored.
 
 ## Example
 
@@ -22,8 +25,8 @@ Non-empty lines have all leading and trailing whitespace removed before processi
     # 2nd list item -- bar's log
     vkey bar.org/tlog+bbbbbbbb+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
     origin something-not-equal-to-vkey-keyname
-    qpd 24
-    contact sysadmin (at) bar.org
+    	qpd 24
+    	contact sysadmin (at) bar.org
 
 ## Header
 
@@ -35,26 +38,26 @@ Zero or more logs follow after the `logs/v0` line.
 
 ## List of logs
 
-A log is defined by the below key-value lines.  The order of key-value lines are
-strict.  Lines that are optional are denoted by square brackets.
+A log is identified by its origin, and defined by a sequence of key-value lines.
+The order of key-value lines is strict.
+Lines that are optional are denoted by square brackets.
 
     vkey VKEY
     [origin ORIGIN]
     qpd QPD
     contact CONTACT
 
-`VKEY` is the log's verification key in vkey format, see
-<https://c2sp.org/signed-note#verifier-keys>.  Only the
-key types specified by <https://C2SP.org/tlog-cosignature> are supported, which
-at the time of writing includes Ed25519 and ML-DSA-44.
+`VKEY` is the log's verification key in vkey format, see <https://c2sp.org/signed-note#verifier-keys>.
+Each log can have only one vkey.
 
-`ORIGIN` the log's origin line, see
-<https://C2SP.org/tlog-checkpoint#note-text>.  If omitted, the log's origin line
-defaults to the vkey key-name.  This is recommended for newly deployed logs.
+`ORIGIN` the log's origin line, see <https://C2SP.org/tlog-checkpoint#note-text>. 
+If omitted, the log's origin line defaults to the vkey's key name. 
+Newly deployed logs SHOULD omit this line.
+Two logs MUST NOT share the same origin.
 
 `QPD` is the number of add-checkpoint requests the log may do per day.
 It MUST be a number in the range [1, 2^31) encoded as an ASCII decimal consisting of characters in the range `0`-`9` only, with no leading zeroes.
 
 `CONTACT` is an arbitrary string useful for humans to reach the log operator.
 
-Repeat the above lines to define one more log.
+This key-value sequence repeats for each defined log.
