@@ -10,6 +10,7 @@ Not available yet.
 | ------------------ | -------------------------------------------------------------------------------------------------- | ---------------------------------- |
 | Geomys             | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://geomys.org/witness/navigli |
 | IPng Networks GmbH | [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][]                         | https://ipng.ch/s/ct/#witness      |
+| Markovian Protocol | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://witness.markovianprotocol.com/about |
 | Mullvad VPN AB     | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://witness.stagemole.eu/about |
 | TrustFabric        | [testing/log-list.1][], [staging/log-list-10qps-4klogs.1][], [staging/log-list-100qps-40klogs.1][] | https://transparency.dev/witnesses |       
 
