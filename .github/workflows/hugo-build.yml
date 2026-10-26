@@ -16,6 +16,9 @@ name: Dry run Hugo build
 
 on: pull_request
 
+permissions:
+  contents: read
+
 jobs:
   dry-run-build:
     runs-on: ubuntu-latest
