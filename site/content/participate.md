@@ -7,6 +7,9 @@ Submit your participation request by sending an email to:
 Guidelines on what information to include are outlined below.  Refer to the
 mailing list [archive][] for inspiration from previous participation requests.
 
+The maintainers may ignore requests from AI agents.  In other words, we
+recommend human-to-human communication in the witness network.
+
 The maintainers may process requests adhoc outside of the mailing list, e.g.,
 when meeting the community on conferences and in various chat rooms like:
 
