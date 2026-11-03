@@ -27,7 +27,7 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/mod/sumdb/note"
+	"github.com/transparency-dev/formats/note"
 )
 
 func init() {
