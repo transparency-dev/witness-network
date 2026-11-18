@@ -27,6 +27,7 @@ promise much since our witness network is a work-in-progress service.
 | IPng Networks GmbH | [testing/log-list.1][] | https://ipng.ch/s/ct/#witness                  |
 | Markovian Protocol | [testing/log-list.1][] | https://witness.markovianprotocol.com/about    |
 | rgdd               | [testing/log-list.1][] | https://www.rgdd.se/poc-witness/about          |
+| tta                | [testing/log-list.1][] | https://wit26n0.testing.archive.rip/about.txt  |
 | TrustFabric        | [testing/log-list.1][] | https://transparency.dev/witnesses/            |
 
 **Warning:** these witnesses are just trying things out, or are otherwise just
