@@ -1,11 +1,15 @@
 # Participate
 
-Submit your participation request by sending an email to:
+File a pull request on GitHub:
+
+    https://github.com/transparency-dev/witness-network
+
+Or submit a participation request via email:
 
     participate (at) lists.witness-network.org
 
-Guidelines on what information to include are outlined below.  Refer to the
-mailing list [archive][] for inspiration from previous participation requests.
+Guidelines on what information to include are outlined below.  Please look at
+previous pull requests and/or in the mailing list [archive][] for some examples.
 
 The maintainers may ignore requests from AI agents.  In other words, we
 recommend human-to-human communication in the witness network.
